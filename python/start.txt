@@ -1,0 +1,50 @@
+
+
+이름    나이    성별
+jun     20      M
+aiden   30      F
+ken     40      -
+
+
+[
+    jun  ,   20   ,   M,
+    aiden  , 30    ,  F,
+    ken    , 40   ,   -
+]
+names = [j, a, k]
+ages = [20, 30, 40]
+genders = [m, f, -]
+
+people = [names, ages, genders]
+
+people = [
+    [j, a, k], 
+    [20, 30, 40], 
+    [m, f, -]
+    ]
+
+
+
+이름    나이    성별
+jun     20      M
+aiden   30      F
+ken     40      -
+
+person1 = { name : jun, age : 20, gender : m}
+person2 = { name : aiden, age : 30, gender : m}
+person3 = { name : ken, age : 40, gender : m}
+
+people = [person1 , person2 , person3]
+
+people = [
+    { name : jun, age : 20, gender : m},
+    { name : aiden, age : 30, gender : m},
+    { name : ken, age : 40, gender : m}
+]
+
+
+people = [
+    { name : jun, age : 20, gender : m},
+    { name : aiden, age : 30, gender : m},
+    { name : ken, age : 40, gender : m}
+]
