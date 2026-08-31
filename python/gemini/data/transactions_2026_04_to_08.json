@@ -1,0 +1,634 @@
+{
+  "budgets": {
+    "2026-04": {
+      "식비": 300000,
+      "교통": 100000
+    },
+    "2026-05": {
+      "식비": 300000,
+      "쇼핑": 150000
+    },
+    "2026-06": {
+      "식비": 300000,
+      "문화": 100000
+    },
+    "2026-07": {
+      "식비": 300000,
+      "교통": 100000
+    },
+    "2026-08": {
+      "식비": 300000,
+      "교통": 100000
+    }
+  },
+  "transactions": [
+  {
+    "transaction_id": "T001",
+    "transaction_type": "수입",
+    "category": "급여",
+    "amount": 3000000,
+    "description": "4월 급여",
+    "transaction_date": "2026-04-25"
+  },
+  {
+    "transaction_id": "T002",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 13500,
+    "description": "점심 식사",
+    "transaction_date": "2026-04-26"
+  },
+  {
+    "transaction_id": "T003",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 65000,
+    "description": "대중교통 충전",
+    "transaction_date": "2026-04-28"
+  },
+  {
+    "transaction_id": "T004",
+    "transaction_type": "수입",
+    "category": "급여",
+    "amount": 3000000,
+    "description": "5월 급여",
+    "transaction_date": "2026-05-25"
+  },
+  {
+    "transaction_id": "T005",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 24000,
+    "description": "저녁 식사",
+    "transaction_date": "2026-05-12"
+  },
+  {
+    "transaction_id": "T006",
+    "transaction_type": "지출",
+    "category": "쇼핑",
+    "amount": 59000,
+    "description": "여름 옷 구매",
+    "transaction_date": "2026-05-30"
+  },
+  {
+    "transaction_id": "T007",
+    "transaction_type": "수입",
+    "category": "급여",
+    "amount": 3000000,
+    "description": "6월 급여",
+    "transaction_date": "2026-06-25"
+  },
+  {
+    "transaction_id": "T008",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 18000,
+    "description": "친구와 점심 식사",
+    "transaction_date": "2026-06-07"
+  },
+  {
+    "transaction_id": "T009",
+    "transaction_type": "지출",
+    "category": "문화",
+    "amount": 15000,
+    "description": "영화 관람",
+    "transaction_date": "2026-06-20"
+  },
+  {
+    "transaction_id": "T010",
+    "transaction_type": "수입",
+    "category": "급여",
+    "amount": 3000000,
+    "description": "7월 급여",
+    "transaction_date": "2026-07-25"
+  },
+  {
+    "transaction_id": "T011",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 11000,
+    "description": "커피와 빵",
+    "transaction_date": "2026-07-04"
+  },
+  {
+    "transaction_id": "T012",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 72000,
+    "description": "대중교통 충전",
+    "transaction_date": "2026-07-29"
+  },
+  {
+    "transaction_id": "T013",
+    "transaction_type": "수입",
+    "category": "급여",
+    "amount": 3000000,
+    "description": "8월 급여",
+    "transaction_date": "2026-08-25"
+  },
+  {
+    "transaction_id": "T014",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 24000,
+    "description": "저녁 식사",
+    "transaction_date": "2026-08-28"
+  },
+  {
+    "transaction_id": "T015",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 12000,
+    "description": "점심 식사",
+    "transaction_date": "2026-08-29"
+  },
+  {
+    "transaction_id": "T016",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 65000,
+    "description": "대중교통 충전",
+    "transaction_date": "2026-08-30"
+  },
+  {
+    "transaction_id": "T017",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 27500,
+    "description": "아침 식사",
+    "transaction_date": "2026-04-02"
+  },
+  {
+    "transaction_id": "T018",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 12000,
+    "description": "대중교통 이용",
+    "transaction_date": "2026-04-04"
+  },
+  {
+    "transaction_id": "T019",
+    "transaction_type": "지출",
+    "category": "쇼핑",
+    "amount": 45000,
+    "description": "생활용품 구매",
+    "transaction_date": "2026-04-06"
+  },
+  {
+    "transaction_id": "T020",
+    "transaction_type": "지출",
+    "category": "문화",
+    "amount": 55000,
+    "description": "전시 관람",
+    "transaction_date": "2026-04-08"
+  },
+  {
+    "transaction_id": "T021",
+    "transaction_type": "지출",
+    "category": "생활",
+    "amount": 16000,
+    "description": "마트 장보기",
+    "transaction_date": "2026-04-10"
+  },
+  {
+    "transaction_id": "T022",
+    "transaction_type": "지출",
+    "category": "의료",
+    "amount": 5200,
+    "description": "약국 구매",
+    "transaction_date": "2026-04-12"
+  },
+  {
+    "transaction_id": "T023",
+    "transaction_type": "지출",
+    "category": "교육",
+    "amount": 21000,
+    "description": "온라인 강의",
+    "transaction_date": "2026-04-14"
+  },
+  {
+    "transaction_id": "T024",
+    "transaction_type": "지출",
+    "category": "통신",
+    "amount": 9800,
+    "description": "휴대폰 요금",
+    "transaction_date": "2026-04-16"
+  },
+  {
+    "transaction_id": "T025",
+    "transaction_type": "지출",
+    "category": "취미",
+    "amount": 8500,
+    "description": "책 구매",
+    "transaction_date": "2026-04-18"
+  },
+  {
+    "transaction_id": "T026",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 1500,
+    "description": "커피",
+    "transaction_date": "2026-04-20"
+  },
+  {
+    "transaction_id": "T027",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 32000,
+    "description": "저녁 식사",
+    "transaction_date": "2026-04-22"
+  },
+  {
+    "transaction_id": "T028",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 18000,
+    "description": "택시 이용",
+    "transaction_date": "2026-04-24"
+  },
+  {
+    "transaction_id": "T029",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 12000,
+    "description": "아침 식사",
+    "transaction_date": "2026-05-02"
+  },
+  {
+    "transaction_id": "T030",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 45000,
+    "description": "대중교통 이용",
+    "transaction_date": "2026-05-04"
+  },
+  {
+    "transaction_id": "T031",
+    "transaction_type": "지출",
+    "category": "쇼핑",
+    "amount": 55000,
+    "description": "생활용품 구매",
+    "transaction_date": "2026-05-06"
+  },
+  {
+    "transaction_id": "T032",
+    "transaction_type": "지출",
+    "category": "문화",
+    "amount": 16000,
+    "description": "전시 관람",
+    "transaction_date": "2026-05-08"
+  },
+  {
+    "transaction_id": "T033",
+    "transaction_type": "지출",
+    "category": "생활",
+    "amount": 5200,
+    "description": "마트 장보기",
+    "transaction_date": "2026-05-10"
+  },
+  {
+    "transaction_id": "T034",
+    "transaction_type": "지출",
+    "category": "의료",
+    "amount": 21000,
+    "description": "약국 구매",
+    "transaction_date": "2026-05-12"
+  },
+  {
+    "transaction_id": "T035",
+    "transaction_type": "지출",
+    "category": "교육",
+    "amount": 9800,
+    "description": "온라인 강의",
+    "transaction_date": "2026-05-14"
+  },
+  {
+    "transaction_id": "T036",
+    "transaction_type": "지출",
+    "category": "통신",
+    "amount": 8500,
+    "description": "휴대폰 요금",
+    "transaction_date": "2026-05-16"
+  },
+  {
+    "transaction_id": "T037",
+    "transaction_type": "지출",
+    "category": "취미",
+    "amount": 1500,
+    "description": "책 구매",
+    "transaction_date": "2026-05-18"
+  },
+  {
+    "transaction_id": "T038",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 32000,
+    "description": "커피",
+    "transaction_date": "2026-05-20"
+  },
+  {
+    "transaction_id": "T039",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 18000,
+    "description": "저녁 식사",
+    "transaction_date": "2026-05-22"
+  },
+  {
+    "transaction_id": "T040",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 27500,
+    "description": "택시 이용",
+    "transaction_date": "2026-05-24"
+  },
+  {
+    "transaction_id": "T041",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 45000,
+    "description": "아침 식사",
+    "transaction_date": "2026-06-02"
+  },
+  {
+    "transaction_id": "T042",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 55000,
+    "description": "대중교통 이용",
+    "transaction_date": "2026-06-04"
+  },
+  {
+    "transaction_id": "T043",
+    "transaction_type": "지출",
+    "category": "쇼핑",
+    "amount": 16000,
+    "description": "생활용품 구매",
+    "transaction_date": "2026-06-06"
+  },
+  {
+    "transaction_id": "T044",
+    "transaction_type": "지출",
+    "category": "문화",
+    "amount": 5200,
+    "description": "전시 관람",
+    "transaction_date": "2026-06-08"
+  },
+  {
+    "transaction_id": "T045",
+    "transaction_type": "지출",
+    "category": "생활",
+    "amount": 21000,
+    "description": "마트 장보기",
+    "transaction_date": "2026-06-10"
+  },
+  {
+    "transaction_id": "T046",
+    "transaction_type": "지출",
+    "category": "의료",
+    "amount": 9800,
+    "description": "약국 구매",
+    "transaction_date": "2026-06-12"
+  },
+  {
+    "transaction_id": "T047",
+    "transaction_type": "지출",
+    "category": "교육",
+    "amount": 8500,
+    "description": "온라인 강의",
+    "transaction_date": "2026-06-14"
+  },
+  {
+    "transaction_id": "T048",
+    "transaction_type": "지출",
+    "category": "통신",
+    "amount": 1500,
+    "description": "휴대폰 요금",
+    "transaction_date": "2026-06-16"
+  },
+  {
+    "transaction_id": "T049",
+    "transaction_type": "지출",
+    "category": "취미",
+    "amount": 32000,
+    "description": "책 구매",
+    "transaction_date": "2026-06-18"
+  },
+  {
+    "transaction_id": "T050",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 18000,
+    "description": "커피",
+    "transaction_date": "2026-06-20"
+  },
+  {
+    "transaction_id": "T051",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 27500,
+    "description": "저녁 식사",
+    "transaction_date": "2026-06-22"
+  },
+  {
+    "transaction_id": "T052",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 12000,
+    "description": "택시 이용",
+    "transaction_date": "2026-06-24"
+  },
+  {
+    "transaction_id": "T053",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 55000,
+    "description": "아침 식사",
+    "transaction_date": "2026-07-02"
+  },
+  {
+    "transaction_id": "T054",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 16000,
+    "description": "대중교통 이용",
+    "transaction_date": "2026-07-04"
+  },
+  {
+    "transaction_id": "T055",
+    "transaction_type": "지출",
+    "category": "쇼핑",
+    "amount": 5200,
+    "description": "생활용품 구매",
+    "transaction_date": "2026-07-06"
+  },
+  {
+    "transaction_id": "T056",
+    "transaction_type": "지출",
+    "category": "문화",
+    "amount": 21000,
+    "description": "전시 관람",
+    "transaction_date": "2026-07-08"
+  },
+  {
+    "transaction_id": "T057",
+    "transaction_type": "지출",
+    "category": "생활",
+    "amount": 9800,
+    "description": "마트 장보기",
+    "transaction_date": "2026-07-10"
+  },
+  {
+    "transaction_id": "T058",
+    "transaction_type": "지출",
+    "category": "의료",
+    "amount": 8500,
+    "description": "약국 구매",
+    "transaction_date": "2026-07-12"
+  },
+  {
+    "transaction_id": "T059",
+    "transaction_type": "지출",
+    "category": "교육",
+    "amount": 1500,
+    "description": "온라인 강의",
+    "transaction_date": "2026-07-14"
+  },
+  {
+    "transaction_id": "T060",
+    "transaction_type": "지출",
+    "category": "통신",
+    "amount": 32000,
+    "description": "휴대폰 요금",
+    "transaction_date": "2026-07-16"
+  },
+  {
+    "transaction_id": "T061",
+    "transaction_type": "지출",
+    "category": "취미",
+    "amount": 18000,
+    "description": "책 구매",
+    "transaction_date": "2026-07-18"
+  },
+  {
+    "transaction_id": "T062",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 27500,
+    "description": "커피",
+    "transaction_date": "2026-07-20"
+  },
+  {
+    "transaction_id": "T063",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 12000,
+    "description": "저녁 식사",
+    "transaction_date": "2026-07-22"
+  },
+  {
+    "transaction_id": "T064",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 45000,
+    "description": "택시 이용",
+    "transaction_date": "2026-07-24"
+  },
+  {
+    "transaction_id": "T065",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 16000,
+    "description": "아침 식사",
+    "transaction_date": "2026-08-02"
+  },
+  {
+    "transaction_id": "T066",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 5200,
+    "description": "대중교통 이용",
+    "transaction_date": "2026-08-04"
+  },
+  {
+    "transaction_id": "T067",
+    "transaction_type": "지출",
+    "category": "쇼핑",
+    "amount": 21000,
+    "description": "생활용품 구매",
+    "transaction_date": "2026-08-06"
+  },
+  {
+    "transaction_id": "T068",
+    "transaction_type": "지출",
+    "category": "문화",
+    "amount": 9800,
+    "description": "전시 관람",
+    "transaction_date": "2026-08-08"
+  },
+  {
+    "transaction_id": "T069",
+    "transaction_type": "지출",
+    "category": "생활",
+    "amount": 8500,
+    "description": "마트 장보기",
+    "transaction_date": "2026-08-10"
+  },
+  {
+    "transaction_id": "T070",
+    "transaction_type": "지출",
+    "category": "의료",
+    "amount": 1500,
+    "description": "약국 구매",
+    "transaction_date": "2026-08-12"
+  },
+  {
+    "transaction_id": "T071",
+    "transaction_type": "지출",
+    "category": "교육",
+    "amount": 32000,
+    "description": "온라인 강의",
+    "transaction_date": "2026-08-14"
+  },
+  {
+    "transaction_id": "T072",
+    "transaction_type": "지출",
+    "category": "통신",
+    "amount": 18000,
+    "description": "휴대폰 요금",
+    "transaction_date": "2026-08-16"
+  },
+  {
+    "transaction_id": "T073",
+    "transaction_type": "지출",
+    "category": "취미",
+    "amount": 27500,
+    "description": "책 구매",
+    "transaction_date": "2026-08-18"
+  },
+  {
+    "transaction_id": "T074",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 12000,
+    "description": "커피",
+    "transaction_date": "2026-08-20"
+  },
+  {
+    "transaction_id": "T075",
+    "transaction_type": "지출",
+    "category": "식비",
+    "amount": 45000,
+    "description": "저녁 식사",
+    "transaction_date": "2026-08-22"
+  },
+  {
+    "transaction_id": "T076",
+    "transaction_type": "지출",
+    "category": "교통",
+    "amount": 55000,
+    "description": "택시 이용",
+    "transaction_date": "2026-08-24"
+  }
+  ]
+}
