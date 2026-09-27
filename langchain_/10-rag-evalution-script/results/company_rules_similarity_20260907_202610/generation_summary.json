@@ -1,0 +1,18 @@
+{
+  "citation_check": {
+    "count": 5,
+    "valid_citation_rate": 1.0,
+    "relevant_citation_rate": 1.0,
+    "avg_latency_ms": 3970.700619998388
+  },
+  "llm_judge": {
+    "count": 5,
+    "correctness": 10.0,
+    "completeness": 10.0,
+    "groundedness": 10.0,
+    "citation_accuracy": 10.0,
+    "average": 10.0,
+    "avg_latency_ms": 4161.177360010333
+  },
+  "ragas": null
+}

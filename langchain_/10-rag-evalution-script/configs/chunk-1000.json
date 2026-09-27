@@ -1,0 +1,56 @@
+{
+  "name": "chunk-1000",
+  "description": "청크 크기 1000, overlap 100에서 네 검색 전략 비교",
+  "data": {
+    "documents_dir": "../data/public",
+    "evaluation_path": "../data/public/public_paragraph_golden_set.json"
+  },
+  "chunking": {
+    "strategy": "recursive",
+    "chunk_size": 1000,
+    "chunk_overlap": 100,
+    "separators": [
+      "\n\n",
+      "\n",
+      " "
+    ],
+    "include_source": false
+  },
+  "embedding": {
+    "model": "gemini-embedding-2"
+  },
+  "retrieval": {
+    "strategies": [
+      "similarity",
+      "mmr",
+      "bm25",
+      "hybrid"
+    ],
+    "k": 5,
+    "fetch_k": 20,
+    "lambda_mult": 0.5,
+    "weights": [
+      0.5,
+      0.5
+    ]
+  },
+  "generation": {
+    "strategies": [
+      "similarity",
+      "hybrid"
+    ],
+    "model": "gemini-3.6-flash",
+    "context_k": 5,
+    "prompt_path": "../prompts/grounded.txt"
+  },
+  "evaluation": {
+    "ragas_metrics": [
+      "faithfulness",
+      "answer_relevancy",
+      "answer_correctness"
+    ],
+    "model": "gemini-3.6-flash",
+    "embedding_model": "gemini-embedding-2"
+  },
+  "output_dir": "outputs"
+}

@@ -1,0 +1,22 @@
+{
+  "experiment_name": "public_similarity",
+  "document_glob": "data/public/*.pdf",
+  "eval_data_path": "data/public/public_paragraph_golden_set.json",
+  "eval_field_map": {
+    "expected_answer": "target_answer",
+    "source": "target_file_name",
+    "page": "target_page_no"
+  },
+  "chunk_size": 500,
+  "chunk_overlap": 50,
+  "embedding_model": "gemini-embedding-2",
+  "persist_dir": "./chroma_db",
+  "collection_name": "rag_eval_public_similarity",
+  "rebuild_index": true,
+  "search_strategy": "similarity",
+  "k": 5,
+  "generation_model": "gemini-3.6-flash",
+  "run_generation": true,
+  "generation_case_limit": 5,
+  "generation_metrics": ["citation_check", "llm_judge"]
+}

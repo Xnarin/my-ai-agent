@@ -1,0 +1,14 @@
+{
+  "similarity": {
+    "count": 5,
+    "faithfulness": 0.8,
+    "answer_relevancy": 0.8957,
+    "answer_correctness": 0.93
+  },
+  "hybrid": {
+    "count": 5,
+    "faithfulness": 0.9,
+    "answer_relevancy": 0.8564,
+    "answer_correctness": 0.9006
+  }
+}

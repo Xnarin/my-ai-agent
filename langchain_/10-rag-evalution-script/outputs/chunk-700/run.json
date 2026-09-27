@@ -1,0 +1,115 @@
+{
+  "created_at": "2026-09-07T12:00:13.364680+00:00",
+  "python_version": "3.13.13",
+  "package_versions": {
+    "chromadb": "1.5.9",
+    "langchain": "1.3.18",
+    "langchain-chroma": "1.1.0",
+    "langchain-google-genai": "4.3.7",
+    "ragas": "0.4.3"
+  },
+  "evaluation_sha256": "96822a85b9e864d152d6dbe3f3f99c776e6fed69e68e5735fa97116a8f619021",
+  "documents": [
+    {
+      "name": "(240411보도자료) 재정동향 4월호.pdf",
+      "sha256": "50eeb97e36ffbaa520f134de00e7f2ab0422e3d5c1932eb58dc3d4cd0e5b4d7f"
+    },
+    {
+      "name": "(보도자료)2024년+교육부+주요정책+추진계획+발표_보도자료.pdf",
+      "sha256": "a7c5cc1b0c4d2c02a2f2fb8515c0dda79aba59ec1b1ca9c1a77727f2d343719d"
+    },
+    {
+      "name": "2023_2027 국가재정운용계획 주요내용.pdf",
+      "sha256": "bea1c24b490d8d53ff9841cbd8ce7b0c4925efc6f04c8f2ed5a751728060ce3c"
+    },
+    {
+      "name": "2024년 주요업무 추진계획.pdf",
+      "sha256": "de2c0b5f0f7bc6ac7e988857ac26dd1a53bfc687f7a75d717d753e2e7a81dac5"
+    },
+    {
+      "name": "2024년 행정안전부 업무계획.pdf",
+      "sha256": "10a65670740075aaed0fe0366922a49e47885a5405cc116671cc204281606dce"
+    },
+    {
+      "name": "2024년+국립대학+육성사업+기본계획.pdf",
+      "sha256": "ddebde131af73d2161802ec30a7682430cbdeedbc0e597d4f80c0fb1e31c3d9f"
+    },
+    {
+      "name": "240319 알기쉬운 청년농신보 책자(최종본)★_배포용.pdf",
+      "sha256": "141f7a4c8cd5598bab065f74591699907274cee4146f1872a020c79c205b2721"
+    },
+    {
+      "name": "240418 도로터널 결로대책 가이드라인(최종).pdf",
+      "sha256": "2d7be633968442c625188c066e640ae80e8a33a4ab1cc14b9a05c7b3b4e74851"
+    },
+    {
+      "name": "외교부-2024년 앙골라개황(저).pdf",
+      "sha256": "0eea3c84210b348f96a6fdccc61ac471c6f69e17fd86c0610ab8acd1ddf1e323"
+    },
+    {
+      "name": "전문교육기관ᆞ항공훈련기관 지정ᆞ인가 및 안전관리 현황__.pdf",
+      "sha256": "cd5037e2af18817065f261349f6eb9fe61dce6afab4296107eb675d02357221b"
+    },
+    {
+      "name": "제4차(24_28)+학교도서관+진흥+기본계획.pdf",
+      "sha256": "045c5799d5fd8d0cf4fd44cfe431f9bcd454880956d0bf65333c9e0aaecfc7d6"
+    }
+  ],
+  "config": {
+    "name": "chunk-700",
+    "description": "청크 크기 700, overlap 100에서 네 검색 전략 비교",
+    "data": {
+      "documents_dir": "rag_experiment_example\\data\\public",
+      "evaluation_path": "rag_experiment_example\\data\\public\\public_paragraph_golden_set.json"
+    },
+    "chunking": {
+      "strategy": "recursive",
+      "chunk_size": 700,
+      "chunk_overlap": 100,
+      "separators": [
+        "\n\n",
+        "\n",
+        " "
+      ],
+      "include_source": false
+    },
+    "embedding": {
+      "model": "gemini-embedding-2"
+    },
+    "retrieval": {
+      "strategies": [
+        "similarity",
+        "mmr",
+        "bm25",
+        "hybrid"
+      ],
+      "k": 5,
+      "fetch_k": 20,
+      "lambda_mult": 0.5,
+      "weights": [
+        0.5,
+        0.5
+      ]
+    },
+    "generation": {
+      "strategies": [
+        "similarity",
+        "hybrid"
+      ],
+      "model": "gemini-3.6-flash",
+      "context_k": 5,
+      "prompt_path": "rag_experiment_example\\prompts\\grounded.txt"
+    },
+    "evaluation": {
+      "ragas_metrics": [
+        "faithfulness",
+        "answer_relevancy",
+        "answer_correctness"
+      ],
+      "model": "gemini-3.6-flash",
+      "embedding_model": "gemini-embedding-2"
+    },
+    "output_dir": "rag_experiment_example\\outputs",
+    "config_path": "rag_experiment_example\\configs\\chunk-700.json"
+  }
+}

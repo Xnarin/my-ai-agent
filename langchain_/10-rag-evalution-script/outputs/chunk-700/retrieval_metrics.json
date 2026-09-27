@@ -1,0 +1,46 @@
+{
+  "similarity": {
+    "count": 35,
+    "target_file_hit_1": 0.9714,
+    "target_file_hit_3": 1,
+    "target_file_hit_5": 1,
+    "target_page_hit_1": 0.8857,
+    "target_page_hit_3": 0.9143,
+    "target_page_hit_5": 0.9429,
+    "mrr": 0.9071,
+    "avg_latency_ms": 478.46
+  },
+  "mmr": {
+    "count": 35,
+    "target_file_hit_1": 0.9714,
+    "target_file_hit_3": 1,
+    "target_file_hit_5": 1,
+    "target_page_hit_1": 0.8857,
+    "target_page_hit_3": 0.9143,
+    "target_page_hit_5": 0.9429,
+    "mrr": 0.9071,
+    "avg_latency_ms": 1183.07
+  },
+  "bm25": {
+    "count": 35,
+    "target_file_hit_1": 0.9714,
+    "target_file_hit_3": 0.9714,
+    "target_file_hit_5": 1,
+    "target_page_hit_1": 0.8857,
+    "target_page_hit_3": 0.9143,
+    "target_page_hit_5": 0.9429,
+    "mrr": 0.9071,
+    "avg_latency_ms": 2.83
+  },
+  "hybrid": {
+    "count": 35,
+    "target_file_hit_1": 0.9714,
+    "target_file_hit_3": 1,
+    "target_file_hit_5": 1,
+    "target_page_hit_1": 0.8857,
+    "target_page_hit_3": 0.9429,
+    "target_page_hit_5": 0.9429,
+    "mrr": 0.9095,
+    "avg_latency_ms": 466.48
+  }
+}

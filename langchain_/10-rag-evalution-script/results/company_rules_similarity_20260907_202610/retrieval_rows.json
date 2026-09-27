@@ -1,0 +1,1332 @@
+[
+  {
+    "id": 1,
+    "question": "연차는 며칠이야?",
+    "difficulty": "easy",
+    "relevant": [
+      "인사규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "인사규정.md",
+      "퇴직관리규정.md",
+      "채용규정.md",
+      "복리후생규정.md",
+      "인사규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 2,
+    "question": "비밀번호는 몇 일마다 바꿔야 해?",
+    "difficulty": "easy",
+    "relevant": [
+      "보안규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "보안규정.md",
+      "보안규정.md",
+      "보안규정.md",
+      "보안규정.md",
+      "IT지원규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 3,
+    "question": "노트북 교체 주기는 어떻게 돼?",
+    "difficulty": "easy",
+    "relevant": [
+      "IT지원규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "IT지원규정.md",
+      "IT지원규정.md",
+      "IT지원규정.md",
+      "보안규정.md",
+      "IT지원규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 4,
+    "question": "출장 가면 하루에 얼마 받아?",
+    "difficulty": "medium",
+    "relevant": [
+      "경비처리규정.md",
+      "출장규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "출장규정.md",
+      "경비처리규정.md",
+      "출장규정.md",
+      "출장규정.md",
+      "경비처리규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 5,
+    "question": "거래처 사람한테 선물 받아도 돼?",
+    "difficulty": "easy",
+    "relevant": [
+      "윤리규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "윤리규정.md",
+      "윤리규정.md",
+      "윤리규정.md",
+      "법인카드사용규정.md",
+      "법인카드사용규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 6,
+    "question": "서울 출장 가면 숙박비 얼마까지 나와?",
+    "difficulty": "medium",
+    "relevant": [
+      "경비처리규정.md",
+      "출장규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "출장규정.md",
+      "경비처리규정.md",
+      "출장규정.md",
+      "출장규정.md",
+      "경비처리규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 7,
+    "question": "개발자한테 모니터 몇 대 줘?",
+    "difficulty": "medium",
+    "relevant": [
+      "IT지원규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "IT지원규정.md",
+      "IT지원규정.md",
+      "IT지원규정.md",
+      "IT지원규정.md",
+      "IT지원규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 8,
+    "question": "보안 사고가 터지면 어떻게 해야 해?",
+    "difficulty": "medium",
+    "relevant": [
+      "보안규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "보안규정.md",
+      "개인정보보호규정.md",
+      "보안규정.md",
+      "보안규정.md",
+      "보안규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 9,
+    "question": "40세 이상이면 건강검진 혜택이 달라?",
+    "difficulty": "medium",
+    "relevant": [
+      "경비처리규정.md",
+      "복리후생규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "복리후생규정.md",
+      "경비처리규정.md",
+      "안전보건규정.md",
+      "복리후생규정.md",
+      "복리후생규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 10,
+    "question": "성과 평가에서 계속 D등급 받으면 어떻게 돼?",
+    "difficulty": "medium",
+    "relevant": [
+      "인사규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "인사규정.md",
+      "재택근무규정.md",
+      "보상및급여규정.md",
+      "채용규정.md",
+      "인사규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 11,
+    "question": "결혼하면 회사에서 뭘 해줘?",
+    "difficulty": "hard",
+    "relevant": [
+      "인사규정.md",
+      "경비처리규정.md",
+      "복리후생규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "복리후생규정.md",
+      "복리후생규정.md",
+      "경비처리규정.md",
+      "복리후생규정.md",
+      "사내동호회규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 0.6666666666666666,
+    "recall@5": 0.6666666666666666,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 12,
+    "question": "재택근무할 때 지켜야 할 것들을 전부 알려줘",
+    "difficulty": "hard",
+    "relevant": [
+      "인사규정.md",
+      "IT지원규정.md",
+      "보안규정.md",
+      "재택근무규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "재택근무규정.md",
+      "재택근무규정.md",
+      "재택근무규정.md",
+      "재택근무규정.md",
+      "사내커뮤니케이션규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 0.25,
+    "recall@5": 0.25,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 13,
+    "question": "퇴직할 때 해야 할 일이 뭐야?",
+    "difficulty": "hard",
+    "relevant": [
+      "IT지원규정.md",
+      "보안규정.md",
+      "퇴직관리규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "퇴직관리규정.md",
+      "퇴직관리규정.md",
+      "퇴직관리규정.md",
+      "출장규정.md",
+      "복리후생규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 0.3333333333333333,
+    "recall@5": 0.3333333333333333,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 14,
+    "question": "해외 출장 가는데 미국이면 숙박비 얼마야? 환율은 어떻게 적용해?",
+    "difficulty": "medium",
+    "relevant": [
+      "경비처리규정.md",
+      "출장규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "출장규정.md",
+      "경비처리규정.md",
+      "출장규정.md",
+      "출장규정.md",
+      "경비처리규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 15,
+    "question": "프로덕션 DB에 직접 쿼리 날려도 돼?",
+    "difficulty": "easy",
+    "relevant": [
+      "IT지원규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "IT지원규정.md",
+      "IT지원규정.md",
+      "사내커뮤니케이션규정.md",
+      "개인정보보호규정.md",
+      "보안규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 16,
+    "question": "자기개발비로 뭘 할 수 있어? 자격증 따면 추가 혜택 있어?",
+    "difficulty": "medium",
+    "relevant": [
+      "경비처리규정.md",
+      "교육훈련규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "교육훈련규정.md",
+      "경비처리규정.md",
+      "교육훈련규정.md",
+      "복리후생규정.md",
+      "교육훈련규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 17,
+    "question": "USB 꽂아서 파일 옮겨도 돼?",
+    "difficulty": "easy",
+    "relevant": [
+      "보안규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "복리후생규정.md",
+      "보안규정.md",
+      "차량관리규정.md",
+      "IT지원규정.md",
+      "IT지원규정.md"
+    ],
+    "hit@1": 0,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.2,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 0.5,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 18,
+    "question": "회사에서 봉사활동 시간 줘?",
+    "difficulty": "medium",
+    "relevant": [
+      "윤리규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "윤리규정.md",
+      "복리후생규정.md",
+      "사내동호회규정.md",
+      "교육훈련규정.md",
+      "교육훈련규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.2,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 19,
+    "question": "직장 내 괴롭힘 신고하면 어떤 절차로 진행돼?",
+    "difficulty": "medium",
+    "relevant": [
+      "윤리규정.md",
+      "징계규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "징계규정.md",
+      "윤리규정.md",
+      "징계규정.md",
+      "안전보건규정.md",
+      "안전보건규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 20,
+    "question": "발탁 승진은 어떤 조건이야?",
+    "difficulty": "medium",
+    "relevant": [
+      "인사규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "인사규정.md",
+      "채용규정.md",
+      "인사규정.md",
+      "보상및급여규정.md",
+      "채용규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 21,
+    "question": "재택근무 몇 번까지 가능해?",
+    "difficulty": "medium",
+    "relevant": [
+      "인사규정.md",
+      "재택근무규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "재택근무규정.md",
+      "재택근무규정.md",
+      "재택근무규정.md",
+      "재택근무규정.md",
+      "인사규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 1.0,
+    "recall@3": 0.5,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 22,
+    "question": "법인카드로 상품권 사도 돼?",
+    "difficulty": "easy",
+    "relevant": [
+      "법인카드사용규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "법인카드사용규정.md",
+      "법인카드사용규정.md",
+      "법인카드사용규정.md",
+      "경비처리규정.md",
+      "차량관리규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 23,
+    "question": "S등급 받으면 보너스 얼마야?",
+    "difficulty": "medium",
+    "relevant": [
+      "보상및급여규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "보상및급여규정.md",
+      "인사규정.md",
+      "보상및급여규정.md",
+      "보상및급여규정.md",
+      "사내동호회규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 24,
+    "question": "사내 추천으로 개발자 채용되면 보상금 얼마야?",
+    "difficulty": "easy",
+    "relevant": [
+      "채용규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "채용규정.md",
+      "채용규정.md",
+      "보상및급여규정.md",
+      "교육훈련규정.md",
+      "보상및급여규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 25,
+    "question": "코어타임에 30분 넘게 응답 안 하면 어떻게 돼?",
+    "difficulty": "medium",
+    "relevant": [
+      "재택근무규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "재택근무규정.md",
+      "재택근무규정.md",
+      "사내커뮤니케이션규정.md",
+      "인사규정.md",
+      "사내커뮤니케이션규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 26,
+    "question": "개인정보 유출되면 어디에 신고해야 해? 시한은?",
+    "difficulty": "medium",
+    "relevant": [
+      "개인정보보호규정.md",
+      "보안규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "개인정보보호규정.md",
+      "보안규정.md",
+      "개인정보보호규정.md",
+      "보안규정.md",
+      "개인정보보호규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 27,
+    "question": "해고 당하면 이의 제기할 수 있어?",
+    "difficulty": "medium",
+    "relevant": [
+      "징계규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "징계규정.md",
+      "징계규정.md",
+      "징계규정.md",
+      "인사규정.md",
+      "채용규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 28,
+    "question": "GPL 라이선스 오픈소스 써도 돼?",
+    "difficulty": "easy",
+    "relevant": [
+      "지식재산권규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "지식재산권규정.md",
+      "IT지원규정.md",
+      "지식재산권규정.md",
+      "IT지원규정.md",
+      "IT지원규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 29,
+    "question": "스톡옵션 베스팅 기간은 어떻게 돼?",
+    "difficulty": "medium",
+    "relevant": [
+      "보상및급여규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "보상및급여규정.md",
+      "채용규정.md",
+      "보상및급여규정.md",
+      "인사규정.md",
+      "퇴직관리규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 30,
+    "question": "동호회 만들려면 몇 명 필요해?",
+    "difficulty": "easy",
+    "relevant": [
+      "사내동호회규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "사내동호회규정.md",
+      "사내동호회규정.md",
+      "사내동호회규정.md",
+      "법인카드사용규정.md",
+      "교육훈련규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 31,
+    "question": "특허 등록하면 보상금 얼마야?",
+    "difficulty": "medium",
+    "relevant": [
+      "지식재산권규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "지식재산권규정.md",
+      "사내동호회규정.md",
+      "보상및급여규정.md",
+      "보상및급여규정.md",
+      "교육훈련규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.2,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 32,
+    "question": "회의실 예약하고 안 가면 어떻게 돼?",
+    "difficulty": "easy",
+    "relevant": [
+      "회의실및시설이용규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "회의실및시설이용규정.md",
+      "회의실및시설이용규정.md",
+      "복리후생규정.md",
+      "사내커뮤니케이션규정.md",
+      "차량관리규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 33,
+    "question": "퇴직하고 나서 경쟁사 가도 돼?",
+    "difficulty": "medium",
+    "relevant": [
+      "퇴직관리규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "퇴직관리규정.md",
+      "퇴직관리규정.md",
+      "퇴직관리규정.md",
+      "지식재산권규정.md",
+      "채용규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 34,
+    "question": "둘째 아이 태어나면 회사에서 얼마 줘?",
+    "difficulty": "hard",
+    "relevant": [
+      "인사규정.md",
+      "경비처리규정.md",
+      "복리후생규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "복리후생규정.md",
+      "복리후생규정.md",
+      "경비처리규정.md",
+      "복리후생규정.md",
+      "사내동호회규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 0.6666666666666666,
+    "recall@5": 0.6666666666666666,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 35,
+    "question": "Slack에서 @channel 막 써도 돼?",
+    "difficulty": "easy",
+    "relevant": [
+      "사내커뮤니케이션규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "사내커뮤니케이션규정.md",
+      "사내커뮤니케이션규정.md",
+      "사내커뮤니케이션규정.md",
+      "사내커뮤니케이션규정.md",
+      "회의실및시설이용규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 36,
+    "question": "신입 개발자가 입사하면 첫 2주 동안 뭘 해?",
+    "difficulty": "hard",
+    "relevant": [
+      "교육훈련규정.md",
+      "IT지원규정.md",
+      "채용규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "채용규정.md",
+      "교육훈련규정.md",
+      "인사규정.md",
+      "IT지원규정.md",
+      "채용규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 0.6666666666666666,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 37,
+    "question": "업무 중 만든 코드는 누구 거야? 개인 깃헙에 올려도 돼?",
+    "difficulty": "easy",
+    "relevant": [
+      "지식재산권규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "지식재산권규정.md",
+      "지식재산권규정.md",
+      "윤리규정.md",
+      "IT지원규정.md",
+      "IT지원규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 38,
+    "question": "법인카드 부정 사용하면 어떻게 돼?",
+    "difficulty": "medium",
+    "relevant": [
+      "법인카드사용규정.md",
+      "경비처리규정.md",
+      "징계규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "법인카드사용규정.md",
+      "법인카드사용규정.md",
+      "법인카드사용규정.md",
+      "차량관리규정.md",
+      "경비처리규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 0.3333333333333333,
+    "recall@5": 0.6666666666666666,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 39,
+    "question": "해외 컨퍼런스 가고 싶은데 지원 어떻게 받아?",
+    "difficulty": "medium",
+    "relevant": [
+      "교육훈련규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "교육훈련규정.md",
+      "출장규정.md",
+      "교육훈련규정.md",
+      "출장규정.md",
+      "사내동호회규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 40,
+    "question": "심리 상담 받을 수 있어? 회사에 알려져?",
+    "difficulty": "medium",
+    "relevant": [
+      "복리후생규정.md",
+      "안전보건규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "복리후생규정.md",
+      "안전보건규정.md",
+      "복리후생규정.md",
+      "복리후생규정.md",
+      "지식재산권규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 41,
+    "question": "수습 기간에 월급 깎여?",
+    "difficulty": "medium",
+    "relevant": [
+      "인사규정.md",
+      "보상및급여규정.md",
+      "채용규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "채용규정.md",
+      "인사규정.md",
+      "보상및급여규정.md",
+      "채용규정.md",
+      "채용규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 42,
+    "question": "보안 교육 안 들으면 어떻게 돼?",
+    "difficulty": "medium",
+    "relevant": [
+      "보안규정.md",
+      "교육훈련규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "보안규정.md",
+      "교육훈련규정.md",
+      "보안규정.md",
+      "보안규정.md",
+      "보안규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 1.0,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 43,
+    "question": "회사에서 운동 지원해줘?",
+    "difficulty": "medium",
+    "relevant": [
+      "복리후생규정.md",
+      "사내동호회규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "사내동호회규정.md",
+      "사내동호회규정.md",
+      "교육훈련규정.md",
+      "복리후생규정.md",
+      "사내동호회규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 0.5,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 44,
+    "question": "회사에서 자녀 학비 지원해줘?",
+    "difficulty": "medium",
+    "relevant": [
+      "복리후생규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "복리후생규정.md",
+      "경비처리규정.md",
+      "교육훈련규정.md",
+      "복리후생규정.md",
+      "복리후생규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 45,
+    "question": "오픈소스에 기여해도 돼? 성과 평가에 반영돼?",
+    "difficulty": "medium",
+    "relevant": [
+      "지식재산권규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "지식재산권규정.md",
+      "재택근무규정.md",
+      "윤리규정.md",
+      "인사규정.md",
+      "보상및급여규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.2,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 46,
+    "question": "개인 차량으로 출장 가면 기름값 어떻게 받아?",
+    "difficulty": "medium",
+    "relevant": [
+      "경비처리규정.md",
+      "차량관리규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "차량관리규정.md",
+      "차량관리규정.md",
+      "경비처리규정.md",
+      "출장규정.md",
+      "출장규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 47,
+    "question": "5년 다니면 뭐 특별한 혜택 있어?",
+    "difficulty": "medium",
+    "relevant": [
+      "복리후생규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "복리후생규정.md",
+      "경비처리규정.md",
+      "복리후생규정.md",
+      "복리후생규정.md",
+      "복리후생규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.8,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 48,
+    "question": "회사에서 경비 부정으로 징계받으면 구체적으로 어떤 절차야?",
+    "difficulty": "hard",
+    "relevant": [
+      "경비처리규정.md",
+      "징계규정.md",
+      "법인카드사용규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "징계규정.md",
+      "징계규정.md",
+      "징계규정.md",
+      "경비처리규정.md",
+      "경비처리규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 1.0,
+    "recall@3": 0.3333333333333333,
+    "recall@5": 0.6666666666666666,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 49,
+    "question": "감염병 걸리면 연차 써야 해?",
+    "difficulty": "easy",
+    "relevant": [
+      "안전보건규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "안전보건규정.md",
+      "인사규정.md",
+      "안전보건규정.md",
+      "복리후생규정.md",
+      "퇴직관리규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.4,
+    "recall@3": 1.0,
+    "recall@5": 1.0,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  },
+  {
+    "id": 50,
+    "question": "새로 입사하는데 어떤 서류 내야 해?",
+    "difficulty": "medium",
+    "relevant": [
+      "채용규정.md",
+      "지식재산권규정.md"
+    ],
+    "target_page": null,
+    "retrieved": [
+      "채용규정.md",
+      "인사규정.md",
+      "채용규정.md",
+      "채용규정.md",
+      "IT지원규정.md"
+    ],
+    "hit@1": 1,
+    "hit@3": 1,
+    "hit@5": 1,
+    "precision@5": 0.6,
+    "recall@3": 0.5,
+    "recall@5": 0.5,
+    "mrr": 1.0,
+    "page_hit@1": null,
+    "page_hit@3": null,
+    "page_hit@5": null
+  }
+]

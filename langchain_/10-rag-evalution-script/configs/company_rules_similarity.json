@@ -1,0 +1,17 @@
+{
+  "experiment_name": "company_rules_similarity",
+  "document_glob": "data/company_rules/*.md",
+  "eval_data_path": "data/company_rules/eval_qa_50.json",
+  "chunk_size": 700,
+  "chunk_overlap": 100,
+  "embedding_model": "gemini-embedding-2",
+  "persist_dir": "./chroma_db",
+  "collection_name": "rag_eval_company_rules_similarity",
+  "rebuild_index": true,
+  "search_strategy": "similarity",
+  "k": 5,
+  "generation_model": "gemini-3.6-flash",
+  "run_generation": true,
+  "generation_case_limit": 5,
+  "generation_metrics": ["citation_check", "llm_judge"]
+}

@@ -1,0 +1,45 @@
+{
+  "experiment_name": "company_rules_similarity",
+  "document_glob": "data/company_rules/*.md",
+  "eval_data_path": "data/company_rules/eval_qa_50.json",
+  "eval_field_map": {
+    "id": "id",
+    "question": "question",
+    "expected_answer": "expected_answer",
+    "source": "source",
+    "page": "page",
+    "difficulty": "difficulty"
+  },
+  "chunk_size": 700,
+  "chunk_overlap": 100,
+  "embedding_model": "gemini-embedding-2",
+  "persist_dir": "./chroma_db",
+  "collection_name": "rag_eval_company_rules_similarity",
+  "rebuild_index": true,
+  "search_strategy": "similarity",
+  "k": 5,
+  "fetch_k": 20,
+  "lambda_mult": 0.5,
+  "weights": [
+    0.5,
+    0.5
+  ],
+  "context_k": 5,
+  "prompt_path": null,
+  "generation_model": "gemini-3.6-flash",
+  "run_generation": true,
+  "generation_case_limit": 5,
+  "eval_model": "gemini-3.6-flash",
+  "generation_metrics": [
+    "citation_check",
+    "llm_judge"
+  ],
+  "ragas_metrics": [
+    "faithfulness",
+    "answer_relevancy"
+  ],
+  "retry_attempts": 12,
+  "retry_initial_delay": 3.0,
+  "retry_max_delay": 90.0,
+  "result_dir": "10-rag-evalution-script/results"
+}

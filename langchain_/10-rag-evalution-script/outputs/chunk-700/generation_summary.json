@@ -1,0 +1,9 @@
+{
+  "count": 10,
+  "strategies": [
+    "similarity",
+    "hybrid"
+  ],
+  "model": "gemini-3.6-flash",
+  "prompt_path": "rag_experiment_example\\prompts\\grounded.txt"
+}
