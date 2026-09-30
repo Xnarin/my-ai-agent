@@ -8,6 +8,8 @@ from data_store import read_data, reset_data, save_data
 
 OWNER_ID = "user-001"
 KST = timezone(timedelta(hours=9))
+CARD_TYPES = {"credit": "신용", "debit": "체크"}
+CARD_STATUS = {"active": "사용 가능", "locked": "일시 잠금", "lost": "분실 정지"}
 
 
 def find_account(data, nickname):
@@ -83,8 +85,46 @@ def transfer(from_name, to_name, amount):
     )
 
 
+def find_card(data, name):
+    """본인 카드 중에서 이름이 같은 카드를 찾는다. 다른 사용자도 같은 이름을 쓰므로 소유자로 먼저 거른다."""
+    return next((c for c in data["cards"] if c["owner_id"] == OWNER_ID and c["name"] == name), None)
+
+
+def lookup_cards():
+    """본인 카드의 이름·ID·종류·상태를 한 줄씩 반환한다."""
+    data = read_data()
+    return "\n".join(
+        f"{c['name']} ({c['card_id']}, {CARD_TYPES[c['card_type']]}): {CARD_STATUS[c['status']]}"
+        for c in data["cards"] if c["owner_id"] == OWNER_ID
+    )
+
+
+def check_card_lost(card_name):
+    """분실 정지할 수 없으면 이유나 되물을 질문을, 할 수 있으면 빈 문자열을 반환한다.
+    사용 가능한 카드와 일시 잠금된 카드는 모두 분실 정지할 수 있다."""
+    data = read_data()
+    names = ", ".join(c["name"] for c in data["cards"] if c["owner_id"] == OWNER_ID)
+    if not card_name:
+        return f"어느 카드를 정지할까요? ({names})"
+    card = find_card(data, card_name)
+    if card is None:
+        return f"'{card_name}'에 해당하는 카드가 없습니다. ({names} 중에서 골라 주세요)"
+    if card["status"] == "lost":
+        return f"{card_name}는 이미 분실 정지되어 있습니다."
+    return ""
+
+
+def report_card_lost(card_name):
+    """카드를 분실 정지하고 결과 문장을 반환한다. 계좌 잔액과 거래 내역은 바꾸지 않는다."""
+    data = read_data()
+    card = find_card(data, card_name)
+    card["status"] = "lost"
+    save_data(data)
+    return f"{card_name} ({card['card_id']}) 분실 정지 완료"
+
+
 if __name__ == "__main__":
-    # 동작 확인: 불가 조건 8개와 이체 결과를 본다. (시작과 끝에 작업용 데이터를 초기화함)
+    # 동작 확인: 불가 조건 8개와 이체 결과, 카드 분실 정지를 본다. (시작과 끝에 작업용 데이터를 초기화함)
     reset_data()
     print(lookup_accounts())
     assert check_transfer(None, "저축", 100000) == "어느 계좌에서 보낼까요? (생활비, 여행 자금)"
@@ -104,5 +144,14 @@ if __name__ == "__main__":
     assert balances["acc-001"] == 1_331_800 and balances["acc-002"] == 2_380_000
     assert balances["acc-004"] == 850_000  # 다른 사용자의 '생활비' 계좌는 그대로
     assert len(data["transactions"]) == 22
+
+    print(lookup_cards())
+    assert check_card_lost(None) == "어느 카드를 정지할까요? (생활비 카드, 여행 카드)"
+    assert check_card_lost("회사 카드") == "'회사 카드'에 해당하는 카드가 없습니다. (생활비 카드, 여행 카드 중에서 골라 주세요)"
+    assert check_card_lost("생활비 카드") == ""
+    print(report_card_lost("생활비 카드"))
+    assert check_card_lost("생활비 카드") == "생활비 카드는 이미 분실 정지되어 있습니다."
+    statuses = {c["card_id"]: c["status"] for c in read_data()["cards"]}
+    assert statuses["card-001"] == "lost" and statuses["card-003"] == "active"  # 다른 사용자의 '생활비 카드'는 그대로
     reset_data()
     print("functions 확인 완료")

@@ -26,27 +26,32 @@ class State(TypedDict):
     from_account: str | None
     to_account: str | None
     amount: int | None
+    card_name: str | None
     error: str
     decision: str
     result: str
 
 
 class Request(BaseModel):
-    intent: Literal["lookup", "transfer", "unknown"] = Field(
-        description="lookup: 계좌 목록·잔액 조회, transfer: 계좌 간 이체, unknown: 그 외"
+    intent: Literal["lookup", "card_lookup", "transfer", "card_lost", "unknown"] = Field(
+        description=(
+            "lookup: 계좌 목록·잔액 조회, card_lookup: 카드 목록·상태 조회, "
+            "transfer: 계좌 간 이체, card_lost: 카드 분실 정지, unknown: 그 외"
+        )
     )
     from_account: str | None = Field(default=None, description="출금 계좌 별명. 예: 생활비")
     to_account: str | None = Field(default=None, description="입금 계좌 별명. 예: 저축")
     amount: int | None = Field(
         default=None, description="이체 금액(원 단위 정수). 예: 10만 원 → 100000, -1만 원 → -10000"
     )
+    card_name: str | None = Field(default=None, description="카드 이름. 예: 생활비 카드")
 
 
 parser = llm.with_structured_output(Request)
 
 
 def parse_request(state: State):
-    """요청 해석: 업무 종류와 계좌·금액을 뽑고, 이전 요청의 불가 이유·결정·결과는 비운다."""
+    """요청 해석: 업무 종류와 계좌·금액·카드를 뽑고, 이전 요청의 불가 이유·결정·결과는 비운다."""
     request = parser.invoke([
         SystemMessage(content=(
             "은행 앱의 요청 해석기다. 대화를 참고해 마지막 사용자 요청을 해석한다. 말하지 않은 값은 비워 둔다. "
@@ -63,27 +68,33 @@ def route_by_intent(state: State):
 
 
 def lookup(state: State):
-    """계좌 조회"""
+    """조회: 계좌 또는 카드"""
+    if state["intent"] == "card_lookup":
+        return {"result": functions.lookup_cards()}
     return {"result": functions.lookup_accounts()}
 
 
 def check(state: State):
-    """이체 검사: 이체할 수 없으면 불가 이유를 적는다."""
+    """변경 검사: 할 수 없으면 불가 이유나 되물을 질문을 적는다."""
+    if state["intent"] == "card_lost":
+        return {"error": functions.check_card_lost(state["card_name"])}
     return {"error": functions.check_transfer(state["from_account"], state["to_account"], state["amount"])}
 
 
 def route_by_check(state: State):
-    """이체 가능?"""
+    """변경 가능?"""
     return "fail" if state["error"] else "ok"
 
 
 def approval(state: State):
     """승인 요청 (중단): 사용자가 답할 때까지 멈춘다.
     재개되면 이 노드가 처음부터 다시 실행되므로, 여기서는 데이터를 바꾸지 않는다."""
-    decision = interrupt({
-        "question": "다음 이체를 승인하시겠습니까?",
-        "detail": f"{state['from_account']} → {state['to_account']} {state['amount']:,}원",
-    })
+    if state["intent"] == "card_lost":
+        question, detail = "다음 카드를 분실 정지하시겠습니까?", state["card_name"]
+    else:
+        question = "다음 이체를 승인하시겠습니까?"
+        detail = f"{state['from_account']} → {state['to_account']} {state['amount']:,}원"
+    decision = interrupt({"question": question, "detail": detail})
     return {"decision": decision["action"]}
 
 
@@ -93,18 +104,20 @@ def route_by_decision(state: State):
 
 
 def execute(state: State):
-    """이체 실행 + 저장"""
+    """변경 실행 + 저장"""
+    if state["intent"] == "card_lost":
+        return {"result": functions.report_card_lost(state["card_name"])}
     return {"result": functions.transfer(state["from_account"], state["to_account"], state["amount"])}
 
 
 def respond(state: State):
     """결과 안내: 그 외 → 불가 → 거절 → 결과 순서로 확인해서 답한다."""
     if state["intent"] == "unknown":
-        text = "지금은 계좌 조회와 이체만 할 수 있어요."
+        text = "지금은 계좌·카드 조회, 이체, 카드 분실 정지만 할 수 있어요."
     elif state["error"]:
         text = state["error"]
     elif state["decision"] == "reject":
-        text = "이체를 취소했어요. 잔액은 그대로예요."
+        text = "요청을 취소했어요. 바뀐 것은 없어요."
     else:
         text = state["result"]
     return {"messages": [AIMessage(content=text)]}
@@ -122,7 +135,13 @@ builder.add_edge(START, "parse_request")
 builder.add_conditional_edges(
     "parse_request",
     route_by_intent,
-    {"lookup": "lookup", "transfer": "check", "unknown": "respond"},
+    {
+        "lookup": "lookup",
+        "card_lookup": "lookup",
+        "transfer": "check",
+        "card_lost": "check",
+        "unknown": "respond",
+    },
 )
 builder.add_edge("lookup", "respond")
 builder.add_conditional_edges("check", route_by_check, {"ok": "approval", "fail": "respond"})
@@ -134,7 +153,8 @@ graph = builder.compile(checkpointer=MemorySaver())
 
 
 if __name__ == "__main__":
-    # 동작 확인: 빠진 정보를 되묻고 답을 반영하는지, 승인하면 잔액이 바뀌고 거절·불가면 그대로인지 본다.
+    # 동작 확인: 빠진 정보를 되묻고 답을 반영하는지, 승인하면 바뀌고 거절·불가면 그대로인지,
+    # 카드를 분실 정지하면 상태가 바뀌고 이미 정지된 카드는 승인 요청 없이 안내하는지 본다.
     # (시작과 끝에 작업용 데이터를 초기화함)
     from langgraph.types import Command
 
@@ -147,6 +167,9 @@ if __name__ == "__main__":
         ("생활비에서", "approve"),
         ("생활비에서 저축으로 5만 원 옮겨줘.", "reject"),
         ("생활비에서 저축으로 -1만 원 옮겨줘.", None),
+        ("생활비 카드 잃어버렸어. 정지해줘.", "approve"),
+        ("내 카드 목록과 상태를 보여줘.", None),
+        ("생활비 카드 정지해줘.", None),
     ]:
         result = graph.invoke({"messages": [("user", text)]}, config)
         assert ("__interrupt__" in result) == bool(action)  # 불가면 승인 요청 없이 끝나야 한다
@@ -154,5 +177,6 @@ if __name__ == "__main__":
             result = graph.invoke(Command(resume={"action": action}), config)
         print(f"요청: {text} ({action or '승인 요청 없음'})\n답변: {result['messages'][-1].content}\n")
     assert "생활비: 1,331,800원" in functions.lookup_accounts()  # 승인한 10만 원만 반영
+    assert "생활비 카드 (card-001, 체크): 분실 정지" in functions.lookup_cards()
     reset_data()
     print("graph 확인 완료")
