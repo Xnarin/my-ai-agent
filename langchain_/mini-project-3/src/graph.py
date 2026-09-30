@@ -33,9 +33,10 @@ class State(TypedDict):
 
 
 class Request(BaseModel):
-    intent: Literal["lookup", "card_lookup", "transfer", "card_lost", "unknown"] = Field(
+    intent: Literal["lookup", "card_lookup", "history", "transfer", "card_lost", "unknown"] = Field(
         description=(
             "lookup: 계좌 목록·잔액 조회, card_lookup: 카드 목록·상태 조회, "
+            "history: 앞서 한 이체·카드 분실 정지가 처리됐는지 확인 (예: 아까 이체가 됐어?), "
             "transfer: 계좌 간 이체, card_lost: 카드 분실 정지, unknown: 그 외"
         )
     )
@@ -68,9 +69,19 @@ def route_by_intent(state: State):
 
 
 def lookup(state: State):
-    """조회: 계좌 또는 카드"""
+    """조회: 계좌, 카드 또는 처리 기록"""
     if state["intent"] == "card_lookup":
         return {"result": functions.lookup_cards()}
+    if state["intent"] == "history":
+        # 사용자가 가리키는 요청은 대화 맥락으로 찾아야 해서, 처리 기록을 근거로 LLM이 답한다.
+        answer = llm.invoke([
+            SystemMessage(content=(
+                f"처리 기록:\n{functions.lookup_requests()}\n\n"
+                "처리 기록만 근거로, 사용자가 가리키는 요청이 완료·거절·실패 중 무엇인지와 처리 내용을 한두 문장으로 답한다."
+            )),
+            *state["messages"],
+        ])
+        return {"result": answer.text}
     return {"result": functions.lookup_accounts()}
 
 
@@ -110,10 +121,27 @@ def execute(state: State):
     return {"result": functions.transfer(state["from_account"], state["to_account"], state["amount"])}
 
 
+def record(state: State):
+    """처리 기록: 변경 요청의 결과(완료·거절·실패)를 requests에 남긴다. 되물은 경우도 진행 안 됨(실패)으로 남는다."""
+    if state["intent"] == "card_lost":
+        target = {"card_name": state["card_name"]}
+    else:
+        target = {"from_account": state["from_account"], "to_account": state["to_account"], "amount": state["amount"]}
+    if state["error"]:
+        status, result = "failed", state["error"]
+    elif state["decision"] == "reject":
+        status, result = "rejected", "사용자가 거절함"
+    else:
+        status, result = "completed", state["result"]
+    # ponytail: 변경 저장과 기록 저장이 따로라 그 사이에 꺼지면 기록만 빠진다. 필요하면 변경 함수 안에서 함께 저장.
+    functions.record_request(state["intent"], target, status, result)
+    return {}
+
+
 def respond(state: State):
     """결과 안내: 그 외 → 불가 → 거절 → 결과 순서로 확인해서 답한다."""
     if state["intent"] == "unknown":
-        text = "지금은 계좌·카드 조회, 이체, 카드 분실 정지만 할 수 있어요."
+        text = "지금은 계좌·카드 조회, 이체, 카드 분실 정지, 처리 결과 확인만 할 수 있어요."
     elif state["error"]:
         text = state["error"]
     elif state["decision"] == "reject":
@@ -129,6 +157,7 @@ builder.add_node("lookup", lookup)
 builder.add_node("check", check)
 builder.add_node("approval", approval)
 builder.add_node("execute", execute)
+builder.add_node("record", record)
 builder.add_node("respond", respond)
 
 builder.add_edge(START, "parse_request")
@@ -138,15 +167,17 @@ builder.add_conditional_edges(
     {
         "lookup": "lookup",
         "card_lookup": "lookup",
+        "history": "lookup",
         "transfer": "check",
         "card_lost": "check",
         "unknown": "respond",
     },
 )
 builder.add_edge("lookup", "respond")
-builder.add_conditional_edges("check", route_by_check, {"ok": "approval", "fail": "respond"})
-builder.add_conditional_edges("approval", route_by_decision, {"approve": "execute", "reject": "respond"})
-builder.add_edge("execute", "respond")
+builder.add_conditional_edges("check", route_by_check, {"ok": "approval", "fail": "record"})
+builder.add_conditional_edges("approval", route_by_decision, {"approve": "execute", "reject": "record"})
+builder.add_edge("execute", "record")
+builder.add_edge("record", "respond")
 builder.add_edge("respond", END)
 
 graph = builder.compile(checkpointer=MemorySaver())
@@ -154,11 +185,12 @@ graph = builder.compile(checkpointer=MemorySaver())
 
 if __name__ == "__main__":
     # 동작 확인: 빠진 정보를 되묻고 답을 반영하는지, 승인하면 바뀌고 거절·불가면 그대로인지,
-    # 카드를 분실 정지하면 상태가 바뀌고 이미 정지된 카드는 승인 요청 없이 안내하는지 본다.
+    # 카드를 분실 정지하면 상태가 바뀌고 이미 정지된 카드는 승인 요청 없이 안내하는지,
+    # 변경 요청마다 처리 기록이 남고 "아까 이체가 됐어?"에 기록으로 답하는지 본다.
     # (시작과 끝에 작업용 데이터를 초기화함)
     from langgraph.types import Command
 
-    from data_store import reset_data
+    from data_store import read_data, reset_data
 
     reset_data()
     config = {"configurable": {"thread_id": "check"}}
@@ -170,6 +202,7 @@ if __name__ == "__main__":
         ("생활비 카드 잃어버렸어. 정지해줘.", "approve"),
         ("내 카드 목록과 상태를 보여줘.", None),
         ("생활비 카드 정지해줘.", None),
+        ("아까 이체가 됐어?", None),
     ]:
         result = graph.invoke({"messages": [("user", text)]}, config)
         assert ("__interrupt__" in result) == bool(action)  # 불가면 승인 요청 없이 끝나야 한다
@@ -178,5 +211,7 @@ if __name__ == "__main__":
         print(f"요청: {text} ({action or '승인 요청 없음'})\n답변: {result['messages'][-1].content}\n")
     assert "생활비: 1,331,800원" in functions.lookup_accounts()  # 승인한 10만 원만 반영
     assert "생활비 카드 (card-001, 체크): 분실 정지" in functions.lookup_cards()
+    statuses = [r["status"] for r in read_data()["requests"]]
+    assert statuses == ["failed", "completed", "rejected", "failed", "completed", "failed"], statuses
     reset_data()
     print("graph 확인 완료")

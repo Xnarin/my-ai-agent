@@ -123,8 +123,33 @@ def report_card_lost(card_name):
     return f"{card_name} ({card['card_id']}) 분실 정지 완료"
 
 
+def record_request(kind, target, status, result):
+    """처리 기록을 requests에 남긴다. status: completed(완료) / rejected(거절) / failed(실패)"""
+    data = read_data()
+    data["requests"].append({
+        "request_id": str(uuid4()),
+        "owner_id": OWNER_ID,
+        "kind": kind,
+        "target": target,
+        "status": status,
+        "result": result,
+        "created_at": datetime.now(KST).isoformat(timespec="seconds"),
+    })
+    save_data(data)
+
+
+def lookup_requests():
+    """본인 처리 기록을 오래된 순서로 한 줄씩 반환한다."""
+    data = read_data()
+    lines = [
+        f"{r['created_at']} {r['kind']} {r['status']}: {r['target']} → {r['result']}"
+        for r in data["requests"] if r["owner_id"] == OWNER_ID
+    ]
+    return "\n".join(lines) or "처리 기록이 없습니다."
+
+
 if __name__ == "__main__":
-    # 동작 확인: 불가 조건 8개와 이체 결과, 카드 분실 정지를 본다. (시작과 끝에 작업용 데이터를 초기화함)
+    # 동작 확인: 불가 조건 8개와 이체 결과, 카드 분실 정지, 처리 기록을 본다. (시작과 끝에 작업용 데이터를 초기화함)
     reset_data()
     print(lookup_accounts())
     assert check_transfer(None, "저축", 100000) == "어느 계좌에서 보낼까요? (생활비, 여행 자금)"
@@ -153,5 +178,10 @@ if __name__ == "__main__":
     assert check_card_lost("생활비 카드") == "생활비 카드는 이미 분실 정지되어 있습니다."
     statuses = {c["card_id"]: c["status"] for c in read_data()["cards"]}
     assert statuses["card-001"] == "lost" and statuses["card-003"] == "active"  # 다른 사용자의 '생활비 카드'는 그대로
+
+    assert lookup_requests() == "처리 기록이 없습니다."
+    record_request("card_lost", {"card_name": "생활비 카드"}, "completed", "생활비 카드 (card-001) 분실 정지 완료")
+    print(lookup_requests())
+    assert "card_lost completed" in lookup_requests()
     reset_data()
     print("functions 확인 완료")
