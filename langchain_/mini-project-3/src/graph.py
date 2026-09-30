@@ -48,7 +48,10 @@ parser = llm.with_structured_output(Request)
 def parse_request(state: State):
     """요청 해석: 업무 종류와 계좌·금액을 뽑고, 이전 요청의 불가 이유·결정·결과는 비운다."""
     request = parser.invoke([
-        SystemMessage(content="은행 앱의 요청 해석기다. 대화를 참고해 마지막 사용자 요청을 해석한다. 말하지 않은 값은 비워 둔다."),
+        SystemMessage(content=(
+            "은행 앱의 요청 해석기다. 대화를 참고해 마지막 사용자 요청을 해석한다. 말하지 않은 값은 비워 둔다. "
+            "앞에서 되물은 질문에 답한 것이면 앞 요청과 합쳐서 해석한다."
+        )),
         *state["messages"],
     ])
     return {**request.model_dump(), "error": "", "decision": "", "result": ""}
@@ -131,7 +134,8 @@ graph = builder.compile(checkpointer=MemorySaver())
 
 
 if __name__ == "__main__":
-    # 동작 확인: 승인하면 잔액이 바뀌고, 거절·불가면 그대로인지 본다. (시작과 끝에 작업용 데이터를 초기화함)
+    # 동작 확인: 빠진 정보를 되묻고 답을 반영하는지, 승인하면 잔액이 바뀌고 거절·불가면 그대로인지 본다.
+    # (시작과 끝에 작업용 데이터를 초기화함)
     from langgraph.types import Command
 
     from data_store import reset_data
@@ -139,7 +143,8 @@ if __name__ == "__main__":
     reset_data()
     config = {"configurable": {"thread_id": "check"}}
     for text, action in [
-        ("생활비에서 저축으로 10만 원 옮겨줘.", "approve"),
+        ("저축으로 10만 원 옮겨줘.", None),
+        ("생활비에서", "approve"),
         ("생활비에서 저축으로 5만 원 옮겨줘.", "reject"),
         ("생활비에서 저축으로 -1만 원 옮겨줘.", None),
     ]:

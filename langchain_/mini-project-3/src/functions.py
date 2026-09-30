@@ -27,16 +27,22 @@ def lookup_accounts():
 
 
 def check_transfer(from_name, to_name, amount):
-    """이체할 수 없으면 이유를, 할 수 있으면 빈 문자열을 반환한다. (설계의 검사 순서 1~6)"""
-    if not from_name or not to_name or amount is None:
-        return "출금 계좌, 입금 계좌, 금액을 모두 알려주세요."
+    """이체할 수 없으면 이유나 되물을 질문을, 할 수 있으면 빈 문자열을 반환한다. (설계의 검사 순서 1~8)"""
     data = read_data()
+    names = [a["nickname"] for a in data["accounts"] if a["owner_id"] == OWNER_ID]
+    # 빠진 정보는 하나씩 되묻고, 고를 수 있는 계좌를 함께 보여 준다.
+    if not from_name:
+        return f"어느 계좌에서 보낼까요? ({', '.join(n for n in names if n != to_name)})"
+    if not to_name:
+        return f"어느 계좌로 보낼까요? ({', '.join(n for n in names if n != from_name)})"
+    if amount is None:
+        return "얼마를 보낼까요?"
     source = find_account(data, from_name)
     target = find_account(data, to_name)
     if source is None:
-        return f"'{from_name}' 계좌를 찾을 수 없습니다."
+        return f"'{from_name}' 계좌를 찾을 수 없습니다. ({', '.join(names)} 중에서 골라 주세요)"
     if target is None:
-        return f"'{to_name}' 계좌를 찾을 수 없습니다."
+        return f"'{to_name}' 계좌를 찾을 수 없습니다. ({', '.join(names)} 중에서 골라 주세요)"
     if source["account_id"] == target["account_id"]:
         return "출금 계좌와 입금 계좌가 같습니다."
     if amount <= 0:
@@ -78,12 +84,15 @@ def transfer(from_name, to_name, amount):
 
 
 if __name__ == "__main__":
-    # 동작 확인: 불가 조건 6개와 이체 결과를 본다. (시작과 끝에 작업용 데이터를 초기화함)
+    # 동작 확인: 불가 조건 8개와 이체 결과를 본다. (시작과 끝에 작업용 데이터를 초기화함)
     reset_data()
     print(lookup_accounts())
-    assert check_transfer(None, "저축", 100000) == "출금 계좌, 입금 계좌, 금액을 모두 알려주세요."
-    assert check_transfer("비상금", "저축", 100000) == "'비상금' 계좌를 찾을 수 없습니다."
-    assert check_transfer("생활비", "비상금", 100000) == "'비상금' 계좌를 찾을 수 없습니다."
+    assert check_transfer(None, "저축", 100000) == "어느 계좌에서 보낼까요? (생활비, 여행 자금)"
+    assert check_transfer("생활비", None, 100000) == "어느 계좌로 보낼까요? (저축, 여행 자금)"
+    assert check_transfer("생활비", "저축", None) == "얼마를 보낼까요?"
+    not_found = "'비상금' 계좌를 찾을 수 없습니다. (생활비, 저축, 여행 자금 중에서 골라 주세요)"
+    assert check_transfer("비상금", "저축", 100000) == not_found
+    assert check_transfer("생활비", "비상금", 100000) == not_found
     assert check_transfer("생활비", "생활비", 100000) == "출금 계좌와 입금 계좌가 같습니다."
     assert check_transfer("생활비", "저축", -10000) == "이체 금액은 0원보다 커야 합니다."
     assert check_transfer("생활비", "저축", 99_999_999) == "잔액이 부족합니다. (현재 잔액 1,431,800원)"
