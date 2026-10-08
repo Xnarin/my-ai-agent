@@ -1,3 +1,4 @@
+-- Active: 1791247734535@@127.0.0.1@5432@postgres
 -- ctrl + enter
 CREATE DATABASE demodb;
 
@@ -43,3 +44,18 @@ INSERT INTO student VALUES
 SET  major = '컴공';
 
 DELETE FROM student;
+
+CREATE TABLE comments (
+    id INT PRIMARY KEY,
+    content TEXT,
+    parent_id INT,
+    FOREIGN KEY (parent_id) REFERENCES comments(id)
+);
+
+INSERT INTO comments VALUES
+(1, '안녕하세요', NULL),           -- 원댓글
+(2, '반갑습니다', NULL),           -- 원댓글
+(3, '네 안녕하세요!', 1),          -- 1번 댓글의 대댓글
+(4, '저도 반가워요', 1),           -- 1번 댓글의 대댓글
+(5, '답글 드립니다', 2),           -- 2번 댓글의 대댓글
+(6, '안녕', NULL);                -- 원댓글
