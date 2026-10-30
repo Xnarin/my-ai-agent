@@ -1,0 +1,52 @@
+[project]
+name = "fastapi-agent"
+version = "0.1.0"
+description = "비동기 FastAPI 회원 인증과 게시글 CRUD"
+readme = "README.md"
+authors = [
+    { name = "efreakure", email = "ycj950@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "alembic>=1.16,<2",
+    "chromadb>=1.5,<2",
+    "fastapi[standard]>=0.162.0",
+    "langchain>=1.4,<2",
+    "langchain-chroma>=1.1,<2",
+    "langchain-community>=0.4,<0.5",
+    "langchain-core>=1.6.5,<2",
+    "langchain-google-genai>=4.3.7,<5",
+    "langchain-text-splitters>=1,<2",
+    "langgraph>=1.2,<2",
+    "langgraph-checkpoint-postgres>=3.1,<4",
+    "psycopg[binary]>=3.2,<4",
+    "pydantic-settings>=2.0,<3",
+    "pwdlib[argon2]>=0.3.1,<1",
+    "pyjwt>=2.10,<3",
+    "pypdf>=6,<7",
+    "python-dotenv>=1.2,<2",
+    "sqlalchemy[asyncio]>=2.0,<2.1",
+]
+
+[project.scripts]
+rag-ingest = "rag.ingest:main"
+
+[dependency-groups]
+dev = [
+    "aiosqlite>=0.20,<1",
+    "httpx>=0.28,<1",
+    "pytest>=8,<10",
+]
+
+[tool.uv.build-backend]
+module-name = ["fastapi_agent", "agents", "rag"]
+
+[tool.fastapi]
+entrypoint = "fastapi_agent.main:app"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["uv_build>=0.13.6,<0.14.0"]
+build-backend = "uv_build"

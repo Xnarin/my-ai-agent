@@ -1,0 +1,34 @@
+name: docker-practice
+
+services:
+  db:
+    image: pgvector/pgvector:pg17-trixie
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: docker_prac
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d docker_prac"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  backend:
+    build: .
+    env_file:
+      - ./.env
+    environment:
+      DATABASE_URL: postgresql://postgres:1234@db:5432/docker_prac
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

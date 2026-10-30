@@ -1,0 +1,227 @@
+--- /dev/null
++++ b/src/api/toolEvents.js
+@@ -0,0 +1,14 @@
++export const toolEventNames = ['tool_start', 'tool_end', 'tool_error']
++
++export function updateToolCalls(calls = [], event, payload) {
++  const status = { tool_start: 'running', tool_end: 'completed', tool_error: 'failed' }[event]
++  if (!status) return calls
++  const existing = calls.find((call) => call.id === payload.id)
++  if (existing && event === 'tool_start') return calls
++  const next = { id: payload.id, name: payload.name, label: payload.label, status }
++  return existing ? calls.map((call) => call.id === payload.id ? next : call) : [...calls, next]
++}
++
++export function interruptToolCalls(calls = []) {
++  return calls.map((call) => call.status === 'running' ? { ...call, status: 'interrupted' } : call)
++}
+--- /dev/null
++++ b/src/api/toolEvents.test.js
+@@ -0,0 +1,29 @@
++import assert from 'node:assert/strict'
++import { test } from 'node:test'
++import { interruptToolCalls, updateToolCalls } from './toolEvents.js'
++
++const first = { id: 'weather-1', name: 'search_weather', label: '날씨 조회' }
++const second = { ...first, id: 'weather-2' }
++
++test('같은 도구의 병렬 호출과 완료를 실행 ID로 구분한다', () => {
++  let calls = updateToolCalls([], 'tool_start', first)
++  calls = updateToolCalls(calls, 'tool_start', second)
++  calls = updateToolCalls(calls, 'tool_end', second)
++  assert.deepEqual(calls, [{ ...first, status: 'running' }, { ...second, status: 'completed' }])
++  calls = updateToolCalls(calls, 'tool_error', first)
++  assert.deepEqual(calls, [{ ...first, status: 'failed' }, { ...second, status: 'completed' }])
++})
++
++test('중복 시작 이벤트가 완료된 도구를 실행 중으로 되돌리지 않는다', () => {
++  const calls = updateToolCalls([], 'tool_end', first)
++  assert.deepEqual(updateToolCalls(calls, 'tool_start', first), calls)
++})
++
++test('연결이 끊겨도 완료 상태를 유지하고 실행 중이던 도구만 확인 대상으로 바꾼다', () => {
++  let calls = updateToolCalls([], 'tool_start', first)
++  calls = updateToolCalls(calls, 'tool_end', second)
++  assert.deepEqual(interruptToolCalls(calls), [
++    { ...first, status: 'interrupted' }, { ...second, status: 'completed' },
++  ])
++  assert.equal(calls[0].status, 'running')
++})
+--- a/src/api/stream.js
++++ b/src/api/stream.js
+@@ -1,4 +1,5 @@
+ import { API_BASE_URL, ApiError, errorMessage, notifySessionExpired } from './client.js'
++import { toolEventNames } from './toolEvents.js'
+ 
+ // UTF-8 문자, 줄바꿈, 이벤트 경계가 서로 다른 청크에 나뉠 수 있다.
+ export async function consumeSSE(body, onEvent) {
+@@ -71,14 +72,15 @@
+       throw new ApiError('스트리밍 응답을 읽을 수 없습니다.', 0)
+     }
+     await consumeSSE(response.body, ({ event, data }) => {
+-      if (!['token', 'status', 'sources', 'done', 'error'].includes(event)) return false
++      if (!['token', 'status', 'sources', 'done', 'error', ...toolEventNames].includes(event)) return false
+       let payload
+       try { payload = JSON.parse(data) }
+       catch { throw new ApiError('답변 데이터의 형식을 확인할 수 없습니다.', 0) }
+       if (!payload || typeof payload !== 'object' || Array.isArray(payload) ||
+         (event === 'token' && typeof payload.content !== 'string') ||
+         (event === 'status' && typeof payload.message !== 'string') ||
+-        (event === 'sources' && !Array.isArray(payload.sources))) {
++        (event === 'sources' && !Array.isArray(payload.sources)) ||
++        (toolEventNames.includes(event) && ['id', 'name', 'label'].some((key) => typeof payload[key] !== 'string' || !payload[key].trim()))) {
+         throw new ApiError('답변 데이터의 형식을 확인할 수 없습니다.', 0)
+       }
+       if (event === 'error') throw new ApiError(payload.message || '답변 생성 중 오류가 발생했습니다.', 0)
+--- a/src/api/ai.test.js
++++ b/src/api/ai.test.js
+@@ -46,6 +46,31 @@
+   context.mock.method(globalThis, 'fetch', async () => sse('event: token\ndata: {"content":"부분 답변"}\n\n'))
+   await assert.rejects(streamRequest('/chat', { token: 't', body: {}, onEvent: (_, data) => { partial += data.content } }), /완료되기 전에/)
+   assert.equal(partial, '부분 답변')
++})
++
++test('도구 시작과 종료 이벤트를 최종 답변까지 순서대로 전달한다', async (context) => {
++  const tool = { id: 'weather-run', name: 'search_weather', label: '날씨 조회' }
++  const expected = [['tool_start', tool], ['tool_end', tool], ['token', { content: '서울은 맑습니다.' }], ['done', turn]]
++  const events = []
++  context.mock.method(globalThis, 'fetch', async () => sse(expected.map(([event, data]) => `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`).join('')))
++  assert.deepEqual(await ai.stream(42, '서울 날씨', 'token', undefined, (event, payload) => events.push([event, payload])), turn)
++  assert.deepEqual(events, expected)
++})
++
++test('도구 오류가 나도 Agent가 복구해 최종 답변을 보낼 수 있다', async (context) => {
++  const tool = { id: 'weather-run', name: 'search_weather', label: '날씨 조회' }
++  const events = []
++  context.mock.method(globalThis, 'fetch', async () => sse(`event: tool_start\ndata: ${JSON.stringify(tool)}\n\nevent: tool_error\ndata: ${JSON.stringify(tool)}\n\nevent: done\ndata: ${JSON.stringify(turn)}\n\n`))
++  assert.deepEqual(await ai.stream(42, '서울 날씨', 'token', undefined, (event) => events.push(event)), turn)
++  assert.deepEqual(events, ['tool_start', 'tool_error', 'done'])
++})
++
++test('필수 정보가 없는 도구 이벤트는 거부한다', async (context) => {
++  const fetch = context.mock.method(globalThis, 'fetch', async () => sse(''))
++  for (const tool of [{ name: 'search_weather', label: '날씨 조회' }, { id: 'run', name: 'search_weather', label: '' }]) {
++    fetch.mock.mockImplementation(async () => sse(`event: tool_start\ndata: ${JSON.stringify(tool)}\n\n`))
++    await assert.rejects(ai.stream(42, '서울 날씨', 'token'), /데이터의 형식/)
++  }
+ })
+ 
+ test('스트리밍 시작 전 HTTP 오류와 시작 후 실패 이벤트를 구분한다', async (context) => {
+--- a/src/components/AIContent.jsx
++++ b/src/components/AIContent.jsx
+@@ -52,3 +52,15 @@
+ export function Pending({ children = '답변을 준비하고 있어요' }) {
+   return <div className="pending-status" role="status"><span className="pulse-dot" />{children}</div>
+ }
++
++export function ToolActivity({ calls = [] }) {
++  if (!calls.length) return null
++  const statuses = { running: '조회 중', completed: '완료', failed: '실패', interrupted: '결과 확인 필요' }
++  return <ul className="tool-activity" aria-label="도구 실행 현황" aria-live="polite">
++    {calls.map((call) => <li key={call.id} className={`tool-activity-${call.status}`}>
++      <span className="tool-activity-icon" aria-hidden="true">{call.status === 'running' ? <span className="pulse-dot" /> : call.status === 'completed' ? '✓' : '!'}</span>
++      <span className="tool-activity-label">{call.label}</span>
++      <span className="tool-activity-status">{statuses[call.status]}</span>
++    </li>)}
++  </ul>
++}
+--- a/src/components/Conversation.jsx
++++ b/src/components/Conversation.jsx
+@@ -1,7 +1,8 @@
+ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+ import { useNavigate } from 'react-router-dom'
+ import { ai, mergeMessages } from '../api/ai'
+-import { Composer, CopyButton, Markdown, Pending, Sources } from './AIContent'
++import { Composer, CopyButton, Markdown, Pending, Sources, ToolActivity } from './AIContent'
++import { interruptToolCalls, toolEventNames, updateToolCalls } from '../api/toolEvents.js'
+ import { Feedback } from './Feedback'
+ import { RoomDialog } from './RoomDialog'
+ 
+@@ -21,7 +22,6 @@
+   const [pending, setPending] = useState(false)
+   const [sendError, setSendError] = useState('')
+   const [progress, setProgress] = useState('')
+-  const [streaming, setStreaming] = useState(true)
+   const [dialog, setDialog] = useState(null)
+   const [showBottom, setShowBottom] = useState(false)
+   const scrollRef = useRef(null)
+@@ -92,10 +92,10 @@
+     setDraft(''); setPending(true); setSendError(''); setProgress('답변을 준비하고 있어요')
+     setMessages((current) => [...current,
+       { id: userId, role: 'user', content, status: 'pending' },
+-      { id: answerId, role: 'assistant', content: '', sources: [], status: 'pending' },
++      { id: answerId, role: 'assistant', content: '', sources: [], tool_calls: [], status: 'pending' },
+     ])
+     try {
+-      const result = streaming ? await ai.stream(roomId, content, token, controller.signal, (event, payload) => {
++      const result = await ai.stream(roomId, content, token, controller.signal, (event, payload) => {
+         if (controller.signal.aborted) return
+         if (event === 'status' && typeof payload.message === 'string') setProgress(payload.message)
+         if (event === 'token' && typeof payload.content === 'string') {
+@@ -105,15 +105,19 @@
+         if (event === 'sources' && Array.isArray(payload.sources)) {
+           setMessages((current) => current.map((item) => item.id === answerId ? { ...item, sources: payload.sources } : item))
+         }
+-      }) : await ai.send(roomId, content, token, controller.signal)
++        if (toolEventNames.includes(event)) {
++          setProgress(event === 'tool_start' ? '도구로 정보를 확인하고 있어요' : '조회 결과를 확인하고 있어요')
++          setMessages((current) => current.map((item) => item.id === answerId ? { ...item, tool_calls: updateToolCalls(item.tool_calls, event, payload) } : item))
++        }
++      })
+       if (controller.signal.aborted) return
+-      setMessages((current) => current.map((item) => item.id === userId ? result.user_message : item.id === answerId ? result.assistant_message : item))
++      setMessages((current) => current.map((item) => item.id === userId ? result.user_message : item.id === answerId ? { ...result.assistant_message, tool_calls: interruptToolCalls(item.tool_calls) } : item))
+       onActivity()
+     } catch (reason) {
+       if (controller.signal.aborted) return
+       setSendError(reason.message)
+       setDraft(content)
+-      setMessages((current) => current.map((item) => item.id === answerId || item.id === userId ? { ...item, status: 'failed' } : item))
++      setMessages((current) => current.map((item) => item.id === answerId || item.id === userId ? { ...item, status: 'failed', tool_calls: interruptToolCalls(item.tool_calls) } : item))
+     } finally {
+       busyRef.current = false
+       if (!controller.signal.aborted) { setPending(false); setProgress('') }
+@@ -142,7 +146,7 @@
+         {messages.length === 0 && <div className="conversation-empty"><div className="chat-mark" aria-hidden="true">✳</div><h2>어떤 이야기를 나눠 볼까요?</h2><p>날씨나 영화를 물어보고, 이어서 궁금한 점을 질문해 보세요.</p><div className="chat-suggestions">{suggestions.map((text) => <button key={text} onClick={() => { setDraft(text); inputRef.current?.focus() }}>{text}<span aria-hidden="true">↗</span></button>)}</div></div>}
+         {messages.map((message) => <article key={message.id} className={`message message-${message.role}`} aria-label={message.role === 'user' ? '내 메시지' : '챗봇 답변'}>
+           <div className="message-meta"><strong>{message.role === 'user' ? '나' : 'AI 챗봇'}</strong>{message.role === 'assistant' && message.content && message.status !== 'pending' && <CopyButton text={message.content} />}</div>
+-          <div className="message-body">{message.role === 'user' ? <p>{message.content}</p> : <><Markdown>{message.content}</Markdown><Sources sources={message.sources} /></>}
++          <div className="message-body">{message.role === 'user' ? <p>{message.content}</p> : <><ToolActivity calls={message.tool_calls} /><Markdown>{message.content}</Markdown><Sources sources={message.sources} /></>}
+             {message.status === 'failed' && <p className="message-incomplete">{message.role === 'assistant' ? '완료되지 않은 답변' : '전송 결과 확인 필요'}</p>}
+             {message.status === 'pending' && message.role === 'assistant' && !pending && <p className="message-incomplete">완료 상태를 확인하려면 대화 기록을 새로고침해 주세요.</p>}
+           </div>
+@@ -153,7 +157,6 @@
+     <div className="conversation-footer">
+       {showBottom && <button className="latest-button" onClick={() => { stickRef.current = true; scrollRef.current.scrollTop = scrollRef.current.scrollHeight; setShowBottom(false) }}>최신 메시지로 ↓</button>}
+       {sendError && <div className="inline-error" role="alert"><p>{sendError}</p><p>전송 결과를 확인하려면 대화 기록을 새로고침해 주세요.</p><button className="text-button" onClick={() => setRevision((value) => value + 1)} disabled={loading}>대화 기록 새로고침</button></div>}
+-      <div className="composer-options"><label><input type="checkbox" checked={streaming} onChange={(event) => setStreaming(event.target.checked)} disabled={pending} />답변을 실시간으로 받기</label></div>
+       <Composer value={draft} onChange={setDraft} onSubmit={submit} pending={pending} disabled={loading || Boolean(error) || Boolean(sendError)} placeholder="메시지를 입력하세요" inputRef={inputRef} />
+       <p className="chat-footnote">날씨·영화 정보는 실습용 데이터입니다.</p>
+     </div>
+--- a/src/styles.css
++++ b/src/styles.css
+@@ -160,6 +160,14 @@
+ .inline-error p + p { margin-top: 4px; }
+ .inline-error button { margin-top: 6px; font-weight: 600; }
+ .pending-status { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 13px; padding: 12px 0; }
++.tool-activity { list-style: none; padding: 0; margin: 0 0 14px; display: grid; gap: 6px; }
++.tool-activity li { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: #f8faf8; font-size: 12px; }
++.tool-activity-icon { display: flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0; color: var(--accent); }
++.tool-activity-label { min-width: 0; overflow-wrap: anywhere; }
++.tool-activity-status { margin-left: auto; flex-shrink: 0; color: var(--muted); font-size: 11px; }
++.tool-activity-running { border-color: #b2c9bf !important; }
++.tool-activity-failed .tool-activity-icon, .tool-activity-failed .tool-activity-status { color: #a3533f; }
++.tool-activity-interrupted .tool-activity-icon, .tool-activity-interrupted .tool-activity-status { color: #8b651e; }
+ .pulse-dot { width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: var(--accent); animation: pulse 1.5s ease-in-out infinite; }
+ @keyframes pulse { 50% { opacity: .3; } }
+ .markdown-content { overflow-wrap: anywhere; line-height: 1.85; }
+@@ -246,9 +254,6 @@
+ .message-incomplete { color: #a3533f; font-size: 11px; margin-top: 12px !important; }
+ .conversation-footer { position: relative; padding: 12px 26px 14px; width: 100%; max-width: 820px; margin: auto; background: white; }
+ .conversation-footer .inline-error { margin-bottom: 12px; }
+-.composer-options { margin-bottom: 8px; }
+-.composer-options label { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; }
+-.composer-options input { width: auto; accent-color: var(--accent); margin: 0; }
+ .chat-footnote { text-align: center; color: #888; font-size: 10px; margin-top: 9px; }
+ .latest-button { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); border: 1px solid var(--line); border-radius: 20px; background: white; padding: 8px 16px; font-size: 11px; box-shadow: 0 2px 8px #0000000d; }
+ .sidebar-toggle, .sidebar-backdrop, .sidebar-close { display: none; }
