@@ -1,0 +1,20 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
+dist/
+
+# Test and tool caches
+coverage/
+.vite/
+.cache/
+.npm/
+
+# Logs and local OS files
+logs/
+*.log
+npm-debug.log*
+.DS_Store

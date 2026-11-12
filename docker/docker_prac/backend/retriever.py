@@ -1,4 +1,11 @@
 from vector_store import open_vector_store
+import sys
+import asyncio
+
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(
+        asyncio.WindowsSelectorEventLoopPolicy()
+    )
 
 
 def search(query):
@@ -8,6 +15,6 @@ def search(query):
 
 
 if __name__ == "__main__":
-    query = "컨테이너를 삭제해도 데이터를 유지하려면 어떻게 해야 하나요?"
+    query = "react"
     for document in search(query):
         print(document.page_content)

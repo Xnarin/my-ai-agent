@@ -9,7 +9,15 @@ TEXTS = [
     "React는 컴포넌트를 조합해 사용자 화면을 만들고, 상태가 바뀌면 화면을 갱신한다.",
 ]
 
+import sys
+import asyncio
 
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(
+        asyncio.WindowsSelectorEventLoopPolicy()
+    )
+
+    
 def ingest():
     with open_vector_store(initialize=True) as vector_store:
         vector_store.add_texts(

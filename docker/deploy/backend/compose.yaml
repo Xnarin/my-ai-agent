@@ -1,0 +1,15 @@
+name: deploy-backend
+
+services:
+  backend:
+    build: .
+    env_file:
+      - ./.env
+    environment:
+      PGSSLMODE: verify-full
+      PGSSLROOTCERT: /certs/global-bundle.pem
+    volumes:
+      - /home/ubuntu/global-bundle.pem:/certs/global-bundle.pem:ro
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: unless-stopped
