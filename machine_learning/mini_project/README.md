@@ -6,7 +6,7 @@ UCI Default of Credit Card Clients(30,000명)로 다음 달 카드 대금 연체
 
 | 파일 | 내용 |
 | --- | --- |
-| `credit_scroing.ipynb` | 실행 코드 (데이터 로딩 → 탐색 → 분할 → 전처리 → 모델 비교 → 실험 → 테스트 → 사례 분석) |
+| `credit_scroing.ipynb` | 실행 코드 (데이터 로딩 → 탐색 → 분할 → 전처리 → 모델 비교 → 실험 → 테스트 → 사례 분석 → 추세 변수·교차 검증 추가 실험) |
 | `실험기록.md` | 초기 계획, 실험 비교표, 최종 모델과 테스트 결과, 사례 분석, 회고 |
 | `project.md` | 과제 설명 + 단계별 진행·테스트 기록 |
 | `data/` | 노트북 실행 시 `default_credit_clients.csv`가 자동으로 저장되는 곳 |
@@ -31,7 +31,7 @@ pip install pandas scikit-learn xgboost lightgbm matplotlib ipykernel nbconvert
 
 ## 실행 순서
 
-노트북을 위에서부터 순서대로 실행한다. 새 커널에서 전체 실행에 약 40초 걸린다.
+노트북을 위에서부터 순서대로 실행한다. 새 커널에서 전체 실행에 약 1분 걸린다.
 
 명령줄에서 새 커널로 처음부터 실행하려면 (`mini_project` 폴더에서):
 
