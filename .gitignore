@@ -401,3 +401,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/venv,python,node,visualstudiocode,windows,macos
+# 미니 프로젝트 데이터 (노트북이 자동 다운로드)
+machine_learning/mini_project/data/*.csv
